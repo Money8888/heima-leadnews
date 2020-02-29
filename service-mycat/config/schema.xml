@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<!DOCTYPE mycat:schema SYSTEM "schema.dtd">
+<mycat:schema xmlns:mycat="http://io.mycat/">
+	
+	<schema name="itheima-news" checkSQLschema="true" sqlMaxLimit="100">
+		<!-- 全局表 -->
+		<!-- 通用调度器quartz服务的调度表 -->
+		<table name="QUARTZ_QRTZ_BLOB_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_CALENDARS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_CRON_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_FIRED_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_JOB_DETAILS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_LOCKS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_PAUSED_TRIGGER_GRPS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_SCHEDULER_STATE" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_SIMPLE_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_SIMPROP_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="QUARTZ_QRTZ_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<!-- 通用调度器quartz服务的调度表 -->
+		<table name="CRAWLER_QRTZ_BLOB_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_CALENDARS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_CRON_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_FIRED_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_JOB_DETAILS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_LOCKS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_PAUSED_TRIGGER_GRPS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_SCHEDULER_STATE" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_SIMPLE_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_SIMPROP_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="CRAWLER_QRTZ_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<!-- 通用调度器MIGRATION_QRTZ服务的调度表 -->
+		<table name="MIGRATION_QRTZ_BLOB_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_CALENDARS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_CRON_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_FIRED_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_JOB_DETAILS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_LOCKS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_PAUSED_TRIGGER_GRPS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_SCHEDULER_STATE" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_SIMPLE_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_SIMPROP_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="MIGRATION_QRTZ_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<!-- 通用调度器ADMIN_QRTZ服务的调度表 -->
+		<table name="ADMIN_QRTZ_BLOB_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_CALENDARS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_CRON_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_FIRED_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_JOB_DETAILS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_LOCKS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_PAUSED_TRIGGER_GRPS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_SCHEDULER_STATE" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_SIMPLE_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_SIMPROP_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<table name="ADMIN_QRTZ_TRIGGERS" dataNode="DNSQ" type="global"/>
+		<!-- app_info -->
+		<table name="ap_article" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40"/>
+		
+		<table name="ap_article_config" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_article_content" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+
+		<table name="ap_dynamic" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_comment" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_comment_repay" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40"/>
+
+		<table name="ap_user_identity" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_realname" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_info" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+
+		<table name="ap_user_equipment" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_follow" dataNode="DNAP_$0-39" rule="burst4040" />
+		<table name="ap_user_fan" dataNode="DNAP_$0-39"  rule="burst4040" />
+		<table name="ap_user_channel" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_article_list" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_dynamic_list" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_letter" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_message" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_search" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<table name="ap_user_feedback" dataNode="DNAP_$0-39" autoIncrement="true" primaryKey="id" rule="mod-long40" />
+		<!--addtional-->
+		<table name="ap_author" dataNode="DNAP_0" autoIncrement="true" primaryKey="id" />
+		<!--add 2-->
+		<table name="ap_associate_words" dataNode="DNAP_0"/>
+		<table name="ap_hot_words" dataNode="DNAP_0"/>
+		<table name="ap_hot_articles" dataNode="DNAP_0"/>
+
+
+		<!-- app_behavior -->
+		<table name="ap_show_behavior" dataNode="DNBE_$0-49" rule="mod-long50" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_unlikes_behavior" dataNode="DNBE_0" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_follow_behavior" dataNode="DNBE_1" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_share_behavior" dataNode="DNBE_2" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_login_behavior" dataNode="DNBE_$0-49" rule="mod-long" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_equipment" dataNode="DNBE_$0-49" rule="mod-long50" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_equipment_code" dataNode="DNBE_$0-49" rule="mod-long50" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_forward_behavior" dataNode="DNBE_7" autoIncrement="true" primaryKey="id"/>
+		<table name="ap_behavior_entry" dataNode="DNBE_$0-49" rule="burst5050"/>
+		<table name="ap_collection" dataNode="DNBE_$0-49" rule="burst5050"/>
+		<table name="ap_likes_behavior" dataNode="DNBE_$0-49" rule="burst5050"/>
+		<table name="ap_read_behavior" dataNode="DNBE_$0-49" rule="burst5050"/>
+		<!-- wemedia -->
+		<table name="wm_news_statistics" dataNode="DNWM_$0-5" rule="burst66"/>
+		<table name="wm_sub_user" dataNode="DNWM_$0-2" rule="mod-long" autoIncrement="true" primaryKey="id"/>
+		<table name="wm_user_auth" dataNode="DNWM_$1-3" rule="mod-long" autoIncrement="true" primaryKey="id"/>
+		<table name="wm_user" dataNode="DNWM_$0-5" rule="mod-long6" autoIncrement="true" primaryKey="id"/>
+		<table name="wm_user_login" dataNode="DNWM_4" autoIncrement="true" primaryKey="id"/>
+		<table name="wm_user_equipment" dataNode="DNWM_$1-3" rule="mod-long" autoIncrement="true" primaryKey="id"/>
+		<table name="wm_fans_statistics" dataNode="DNWM_$0-5" rule="burst66"/>
+		<table name="wm_fans_portrait" dataNode="DNWM_$0-5" rule="mod-long6" autoIncrement="true" primaryKey="id"/>
+		<!--addtional-->
+		<table name="wm_material" dataNode="DNWM_0" autoIncrement="true" primaryKey="id" />
+		<table name="wm_news" dataNode="DNWM_0" autoIncrement="true" primaryKey="id" />
+		<table name="wm_news_material" dataNode="DNWM_0" autoIncrement="true" primaryKey="id" />
+		<!-- crawlers -->
+		<table name="cl_task_exception" dataNode="DNCL_$0-2" rule="mod-long" autoIncrement="true" primaryKey="id" />
+		<table name="cl_task_log" dataNode="DNCL_$3-5" rule="mod-long" autoIncrement="true" primaryKey="id" />
+		<table name="cl_news" dataNode="DNCL_$0-2" rule="mod-long" autoIncrement="true" primaryKey="id" />
+		<table name="cl_news_comments" dataNode="DNCL_$0-2" rule="cl_news_id3" autoIncrement="true" primaryKey="id" />
+		<table name="cl_news_material" dataNode="DNCL_$0-5" rule="cl_news_id6" autoIncrement="true" primaryKey="id" />
+		<table name="cl_material" dataNode="DNCL_$0-5" rule="mod-long6" autoIncrement="true" primaryKey="id" />
+		<table name="cl_news_additional" dataNode="DNCL_$3-5" rule="cl_news_id3" autoIncrement="true" primaryKey="id" />
+		<table name="cl_ip_pool" dataNode="DNCL_0" autoIncrement="true" primaryKey="id" />
+		<table name="cl_task" dataNode="DNCL_0" autoIncrement="true" primaryKey="id" />
+		<!-- admin -->
+		<table name="ad_article_statistics" dataNode="DNAD_$0-3" rule="mod-long4" autoIncrement="true" primaryKey="id" />
+		<table name="ad_user_opertion" dataNode="DNAD_$0-3" rule="mod-long4" autoIncrement="true" primaryKey="id" />
+		<table name="ad_user" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_user_login" dataNode="DNAD_$0-3" rule="mod-long4" autoIncrement="true" primaryKey="id" />
+		<table name="ad_user_role" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_user_equipment" dataNode="DNAD_$0-3" rule="mod-long4" autoIncrement="true" primaryKey="id" />
+		<table name="ad_menu" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_role" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_role_auth" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_vistor_statistics" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_function" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<!--addtional-->
+		<table name="ad_channel" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_channel_label" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_label" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_recommend_strategy" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_sensitive" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+		<table name="ad_strategy_group" dataNode="DNAD_0" autoIncrement="true" primaryKey="id" />
+	</schema>
+
+	<dataNode name="DNSQ" dataHost="HOST0" database="app_seq" />
+	<dataNode name="DNAP_0" dataHost="HOST0" database="app_info_0" />
+	<dataNode name="DNAP_1" dataHost="HOST0" database="app_info_1" />
+	<dataNode name="DNAP_2" dataHost="HOST0" database="app_info_2" />
+	<dataNode name="DNAP_3" dataHost="HOST0" database="app_info_3" />
+	<dataNode name="DNAP_4" dataHost="HOST0" database="app_info_4" />
+	<dataNode name="DNAP_5" dataHost="HOST0" database="app_info_5" />
+	<dataNode name="DNAP_6" dataHost="HOST0" database="app_info_6" />
+	<dataNode name="DNAP_7" dataHost="HOST0" database="app_info_7" />
+	<dataNode name="DNAP_8" dataHost="HOST0" database="app_info_8" />
+	<dataNode name="DNAP_9" dataHost="HOST0" database="app_info_9" />
+	<dataNode name="DNAP_10" dataHost="HOST0" database="app_info_10" />
+	<dataNode name="DNAP_11" dataHost="HOST0" database="app_info_11" />
+	<dataNode name="DNAP_12" dataHost="HOST0" database="app_info_12" />
+	<dataNode name="DNAP_13" dataHost="HOST0" database="app_info_13" />
+	<dataNode name="DNAP_14" dataHost="HOST0" database="app_info_14" />
+	<dataNode name="DNAP_15" dataHost="HOST0" database="app_info_15" />
+	<dataNode name="DNAP_16" dataHost="HOST0" database="app_info_16" />
+	<dataNode name="DNAP_17" dataHost="HOST0" database="app_info_17" />
+	<dataNode name="DNAP_18" dataHost="HOST0" database="app_info_18" />
+	<dataNode name="DNAP_19" dataHost="HOST0" database="app_info_19" />
+	<dataNode name="DNAP_20" dataHost="HOST0" database="app_info_20" />
+	<dataNode name="DNAP_21" dataHost="HOST0" database="app_info_21" />
+	<dataNode name="DNAP_22" dataHost="HOST0" database="app_info_22" />
+	<dataNode name="DNAP_23" dataHost="HOST0" database="app_info_23" />
+	<dataNode name="DNAP_24" dataHost="HOST0" database="app_info_24" />
+	<dataNode name="DNAP_25" dataHost="HOST0" database="app_info_25" />
+	<dataNode name="DNAP_26" dataHost="HOST0" database="app_info_26" />
+	<dataNode name="DNAP_27" dataHost="HOST0" database="app_info_27" />
+	<dataNode name="DNAP_28" dataHost="HOST0" database="app_info_28" />
+	<dataNode name="DNAP_29" dataHost="HOST0" database="app_info_29" />
+	<dataNode name="DNAP_30" dataHost="HOST0" database="app_info_30" />
+	<dataNode name="DNAP_31" dataHost="HOST0" database="app_info_31" />
+	<dataNode name="DNAP_32" dataHost="HOST0" database="app_info_32" />
+	<dataNode name="DNAP_33" dataHost="HOST0" database="app_info_33" />
+	<dataNode name="DNAP_34" dataHost="HOST0" database="app_info_34" />
+	<dataNode name="DNAP_35" dataHost="HOST0" database="app_info_35" />
+	<dataNode name="DNAP_36" dataHost="HOST0" database="app_info_36" />
+	<dataNode name="DNAP_37" dataHost="HOST0" database="app_info_37" />
+	<dataNode name="DNAP_38" dataHost="HOST0" database="app_info_38" />
+	<dataNode name="DNAP_39" dataHost="HOST0" database="app_info_39" />
+	<dataNode name="DNBE_0" dataHost="HOST0" database="app_behavior_0" />
+	<dataNode name="DNBE_1" dataHost="HOST0" database="app_behavior_1" />
+	<dataNode name="DNBE_2" dataHost="HOST0" database="app_behavior_2" />
+	<dataNode name="DNBE_3" dataHost="HOST0" database="app_behavior_3" />
+	<dataNode name="DNBE_4" dataHost="HOST0" database="app_behavior_4" />
+	<dataNode name="DNBE_5" dataHost="HOST0" database="app_behavior_5" />
+	<dataNode name="DNBE_6" dataHost="HOST0" database="app_behavior_6" />
+	<dataNode name="DNBE_7" dataHost="HOST0" database="app_behavior_7" />
+	<dataNode name="DNBE_8" dataHost="HOST0" database="app_behavior_8" />
+	<dataNode name="DNBE_9" dataHost="HOST0" database="app_behavior_9" />
+	<dataNode name="DNBE_10" dataHost="HOST0" database="app_behavior_10" />
+	<dataNode name="DNBE_11" dataHost="HOST0" database="app_behavior_11" />
+	<dataNode name="DNBE_12" dataHost="HOST0" database="app_behavior_12" />
+	<dataNode name="DNBE_13" dataHost="HOST0" database="app_behavior_13" />
+	<dataNode name="DNBE_14" dataHost="HOST0" database="app_behavior_14" />
+	<dataNode name="DNBE_15" dataHost="HOST0" database="app_behavior_15" />
+	<dataNode name="DNBE_16" dataHost="HOST0" database="app_behavior_16" />
+	<dataNode name="DNBE_17" dataHost="HOST0" database="app_behavior_17" />
+	<dataNode name="DNBE_18" dataHost="HOST0" database="app_behavior_18" />
+	<dataNode name="DNBE_19" dataHost="HOST0" database="app_behavior_19" />
+	<dataNode name="DNBE_20" dataHost="HOST0" database="app_behavior_20" />
+	<dataNode name="DNBE_21" dataHost="HOST0" database="app_behavior_21" />
+	<dataNode name="DNBE_22" dataHost="HOST0" database="app_behavior_22" />
+	<dataNode name="DNBE_23" dataHost="HOST0" database="app_behavior_23" />
+	<dataNode name="DNBE_24" dataHost="HOST0" database="app_behavior_24" />
+	<dataNode name="DNBE_25" dataHost="HOST0" database="app_behavior_25" />
+	<dataNode name="DNBE_26" dataHost="HOST0" database="app_behavior_26" />
+	<dataNode name="DNBE_27" dataHost="HOST0" database="app_behavior_27" />
+	<dataNode name="DNBE_28" dataHost="HOST0" database="app_behavior_28" />
+	<dataNode name="DNBE_29" dataHost="HOST0" database="app_behavior_29" />
+	<dataNode name="DNBE_30" dataHost="HOST0" database="app_behavior_30" />
+	<dataNode name="DNBE_31" dataHost="HOST0" database="app_behavior_31" />
+	<dataNode name="DNBE_32" dataHost="HOST0" database="app_behavior_32" />
+	<dataNode name="DNBE_33" dataHost="HOST0" database="app_behavior_33" />
+	<dataNode name="DNBE_34" dataHost="HOST0" database="app_behavior_34" />
+	<dataNode name="DNBE_35" dataHost="HOST0" database="app_behavior_35" />
+	<dataNode name="DNBE_36" dataHost="HOST0" database="app_behavior_36" />
+	<dataNode name="DNBE_37" dataHost="HOST0" database="app_behavior_37" />
+	<dataNode name="DNBE_38" dataHost="HOST0" database="app_behavior_38" />
+	<dataNode name="DNBE_39" dataHost="HOST0" database="app_behavior_39" />
+	<dataNode name="DNBE_40" dataHost="HOST0" database="app_behavior_40" />
+	<dataNode name="DNBE_41" dataHost="HOST0" database="app_behavior_41" />
+	<dataNode name="DNBE_42" dataHost="HOST0" database="app_behavior_42" />
+	<dataNode name="DNBE_43" dataHost="HOST0" database="app_behavior_43" />
+	<dataNode name="DNBE_44" dataHost="HOST0" database="app_behavior_44" />
+	<dataNode name="DNBE_45" dataHost="HOST0" database="app_behavior_45" />
+	<dataNode name="DNBE_46" dataHost="HOST0" database="app_behavior_46" />
+	<dataNode name="DNBE_47" dataHost="HOST0" database="app_behavior_47" />
+	<dataNode name="DNBE_48" dataHost="HOST0" database="app_behavior_48" />
+	<dataNode name="DNBE_49" dataHost="HOST0" database="app_behavior_49" />
+	<dataNode name="DNWM_0" dataHost="HOST0" database="wemedia_0" />
+	<dataNode name="DNWM_1" dataHost="HOST0" database="wemedia_1" />
+	<dataNode name="DNWM_2" dataHost="HOST0" database="wemedia_2" />
+	<dataNode name="DNWM_3" dataHost="HOST0" database="wemedia_3" />
+	<dataNode name="DNWM_4" dataHost="HOST0" database="wemedia_4" />
+	<dataNode name="DNWM_5" dataHost="HOST0" database="wemedia_5" />
+	<dataNode name="DNCL_0" dataHost="HOST0" database="crawlers_0" />
+	<dataNode name="DNCL_1" dataHost="HOST0" database="crawlers_1" />
+	<dataNode name="DNCL_2" dataHost="HOST0" database="crawlers_2" />
+	<dataNode name="DNCL_3" dataHost="HOST0" database="crawlers_3" />
+	<dataNode name="DNCL_4" dataHost="HOST0" database="crawlers_4" />
+	<dataNode name="DNCL_5" dataHost="HOST0" database="crawlers_5" />
+	<dataNode name="DNAD_0" dataHost="HOST0" database="admin_0" />
+	<dataNode name="DNAD_1" dataHost="HOST0" database="admin_1" />
+	<dataNode name="DNAD_2" dataHost="HOST0" database="admin_2" />
+	<dataNode name="DNAD_3" dataHost="HOST0" database="admin_3" />
+
+	<dataHost name="HOST0" maxCon="600" minCon="200" balance="0"
+	                  writeType="0" dbType="mysql" dbDriver="native" switchType="1"  slaveThreshold="100">
+	        <heartbeat>select user()</heartbeat>
+	        <writeHost host="HOST0_M" url="localhost:3306" user="root" password="cisdi@123456"/>
+	</dataHost>
+
+</mycat:schema>

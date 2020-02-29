@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApShowBehaviorMapper" >
+    <resultMap id="BaseResultMap" type="com.heima.model.behavior.pojos.ApShowBehavior" >
+        <id column="id" property="id" />
+        <result column="entry_id" property="entryId" />
+        <result column="article_id" property="articleId" />
+        <result column="is_click" property="isClick"/>
+        <result column="show_time" property="showTime" />
+        <result column="created_time" property="createdTime" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, entry_id, article_id, is_click, show_time, created_time
+    </sql>
+
+    <select id="selectListByEntryIdAndArticleIds" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ap_show_behavior where entry_id = #{entryId}
+        and article_id in (
+        <trim prefix="" suffixOverrides=",">
+            <foreach collection="articleIds" item="item" separator=",">
+                #{item}
+            </foreach>
+        </trim>
+        )
+    </select>
+
+    <insert id="saveShowBehavior">
+        insert into ap_show_behavior(id,entry_id, article_id, is_click, show_time, created_time) values
+        <foreach collection="articleIds" item="item" separator=",">
+            (#{entryId},#{entryId}, #{item}, 0, now(),now())
+        </foreach>
+    </insert>
+</mapper>

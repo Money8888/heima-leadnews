@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="heima-leadnews-apis" />
+        <module name="heima-leadnews-common" />
+        <module name="heima-leadnews-behavior" />
+        <module name="heima-leadnews-utils" />
+        <module name="service-mycat" />
+        <module name="heima-leadnews-model" />
+        <module name="heima-leadnews-article" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="heima-leadnews-tests" target="1.8" />
+      <module name="heimaleadnewsarticle" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="heima-leadnews-apis" options="-parameters" />
+      <module name="heima-leadnews-article" options="-parameters" />
+      <module name="heima-leadnews-behavior" options="-parameters" />
+      <module name="heima-leadnews-common" options="-parameters" />
+      <module name="heima-leadnews-model" options="-parameters" />
+      <module name="heima-leadnews-utils" options="-parameters" />
+      <module name="heimaleadnewsarticle" options="-parameters" />
+      <module name="service-mycat" options="-parameters" />
+    </option>
+  </component>
+</project>

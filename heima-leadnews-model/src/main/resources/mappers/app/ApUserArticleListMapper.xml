@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heima.model.mappers.app.ApUserArticleListMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.user.pojos.ApUserArticleList">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="article_id" property="articleId"/>
+        <result column="is_show" property="isShow" javaType="java.lang.Boolean" jdbcType="BIT" />
+        <result column="recommend_time" property="recommendTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+        <result column="is_read" property="isRead" javaType="java.lang.Boolean" jdbcType="BIT" />
+        <result column="strategy_id" property="strategyId"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_id, channel_id, article_id, is_show, recommend_time, is_read, strategy_id
+    </sql>
+
+    <select id="loadArticleIdListByUser" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ap_user_article_list
+        <where>
+            user_id = #{user.id} and is_show = 0 and is_read = 0
+            <if test="type != null and type == 1">
+                and recommend_time <![CDATA[<]]> #{dto.minBehotTime}
+            </if>
+            <if test="type != null and type == 2">
+                and recommend_time <![CDATA[>]]> #{dto.maxBehotTime}
+            </if>
+            <if test="dto.tag != '__all__'">
+                and channel_id = #{dto.tag}
+            </if>
+        </where>
+        limit #{dto.size}
+    </select>
+
+</mapper>

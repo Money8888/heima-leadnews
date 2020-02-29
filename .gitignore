@@ -1,0 +1,7 @@
+# Project exclude paths
+/heima-leadnews-apis/target/
+/heima-leadnews-article/target/
+/heima-leadnews-behavior/target/
+/heima-leadnews-common/target/
+/heima-leadnews-model/target/
+/heima-leadnews-utils/target/
