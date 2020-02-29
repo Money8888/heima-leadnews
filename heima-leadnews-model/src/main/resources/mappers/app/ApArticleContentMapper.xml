@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApArticleContentMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.article.pojos.ApArticleContent" >
+        <id column="id" property="id"  />
+        <result column="article_id" property="articleId"/>
+        <result column="content" property="content"  />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, article_id
+  </sql>
+    <sql id="Blob_Column_List" >
+    content
+  </sql>
+    <select id="selectByArticleId" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+        select
+        <include refid="Base_Column_List" />
+        ,
+        <include refid="Blob_Column_List" />
+        from ap_article_content
+        where article_id = #{articleId}
+    </select>
+</mapper>

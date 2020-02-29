@@ -27,9 +27,10 @@
     </select>
 
     <insert id="saveShowBehavior">
-        insert into ap_show_behavior(id,entry_id, article_id, is_click, show_time, created_time) values
+        insert into ap_show_behavior(entry_id, article_id, is_click, show_time, created_time) values
+        /*!mycat:catlet=io.mycat.route.sequence.BatchInsertSequence */
         <foreach collection="articleIds" item="item" separator=",">
-            (#{entryId},#{entryId}, #{item}, 0, now(),now())
+            (#{entryId}, #{item}, 0, now(),now())
         </foreach>
     </insert>
 </mapper>

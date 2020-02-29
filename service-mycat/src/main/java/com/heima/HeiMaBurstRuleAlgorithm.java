@@ -2,23 +2,32 @@ package com.heima;
 
 import io.mycat.config.model.rule.RuleAlgorithm;
 import io.mycat.route.function.AbstractPartitionAlgorithm;
-import lombok.Data;
 
 /**
  * 根据数据表中的burst值计算分片id
- * 分片id的计算公式是: (dataId/Volume)*step + 分表ID/mod
+ * 分片id的计算公式是: (dataId/Volume)*step + 分表ID%mod
  * - Volume是每组分片的每个数据节点DateNode的数据容量
  * - Step是每组分片的DateNode数量
  * - mode是表在每组分片中的节点数量
  * burst数据格式为:dataId-分表id
  */
-@Data
 public class HeiMaBurstRuleAlgorithm extends AbstractPartitionAlgorithm implements RuleAlgorithm {
 
     private Long volume;
     private Integer step;
     private Integer mod;
 
+    public void setVolume(Long volume) {
+        this.volume = volume;
+    }
+
+    public void setStep(Integer step) {
+        this.step = step;
+    }
+
+    public void setMod(Integer mod) {
+        this.mod = mod;
+    }
 
     @Override
     public Integer calculate(String burst) {
@@ -29,7 +38,7 @@ public class HeiMaBurstRuleAlgorithm extends AbstractPartitionAlgorithm implemen
                 Long tableId = Long.valueOf(temp[1]);
                 // 计算
                 try{
-                    int posId = (int)(dataId / volume) * step + (int)(tableId / mod);
+                    int posId = (int)(dataId / volume) * step + (int)(tableId % mod);
                     System.out.println("HEIMA RULE INFO ["+burst+"]-[{"+posId+"}]");
                     return posId;
                 }catch (Exception e){
