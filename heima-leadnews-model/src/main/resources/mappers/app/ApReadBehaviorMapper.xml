@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApReadBehaviorMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.behavior.pojos.ApReadBehavior" >
+        <id column="id" property="id" />
+        <result column="entry_id" property="entryId" />
+        <result column="article_id" property="articleId" />
+        <result column="count" property="count"/>
+        <result column="read_duration" property="readDuration" />
+        <result column="percentage" property="percentage"/>
+        <result column="load_duration" property="loadDuration"/>
+        <result column="created_time" property="createdTime" />
+        <result column="updated_time" property="updatedTime" />
+        <result column="burst" property="burst" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, entry_id, article_id, count, read_duration, percentage, load_duration, created_time,updated_time,burst
+  </sql>
+    <!-- 使用注解方式指明SQL执行的DN -->
+    <select id="selectByEntryId" resultMap="BaseResultMap">
+        /*!mycat:sql=select id from ap_read_behavior where burst='${burst}'*/
+        select  <include refid="Base_Column_List" /> from ap_read_behavior where entry_id = #{entryId} and article_id=#{articleId}
+    </select>
+
+    <insert id="insert" parameterType="com.heima.model.behavior.pojos.ApReadBehavior" >
+    insert into ap_read_behavior (id, entry_id, article_id, count, read_duration, percentage, load_duration, created_time,updated_time,burst)
+    values (#{id}, #{entryId}, #{articleId},
+      #{count,jdbcType=TINYINT}, #{readDuration}, #{percentage,jdbcType=TINYINT},
+      #{loadDuration,jdbcType=TINYINT}, #{createdTime}, #{updatedTime},#{burst})
+  </insert>
+
+    <update id="update" parameterType="com.heima.model.behavior.pojos.ApReadBehavior" >
+        /*!mycat:sql=select id from ap_read_behavior where burst='${burst}'*/
+        update ap_read_behavior
+        <set >
+            <if test="readDuration != null" >
+                read_duration = read_duration + #{readDuration},
+            </if>
+            <if test="percentage != null" >
+                percentage = GREATEST(percentage,#{percentage}),
+            </if>
+            <if test="loadDuration != null" >
+                load_duration = #{loadDuration},
+            </if>
+            <if test="count != null" >
+                count = count+1,
+            </if>
+            <if test="updatedTime != null" >
+                updated_time = #{updatedTime},
+            </if>
+        </set>
+        where entry_id = #{entryId} and article_id = #{articleId} and  burst=#{burst}
+    </update>
+</mapper>

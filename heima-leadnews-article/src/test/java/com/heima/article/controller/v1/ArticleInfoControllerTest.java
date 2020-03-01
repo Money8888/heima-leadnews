@@ -2,6 +2,8 @@ package com.heima.article.controller.v1;
 
 import com.heima.article.ArticleJarApplication;
 import com.heima.model.article.dtos.ArticleInfoDto;
+import com.heima.model.user.pojos.ApUser;
+import com.heima.utils.threadlocal.AppThreadLocalUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +40,24 @@ public class ArticleInfoControllerTest {
         ArticleInfoDto dto = new ArticleInfoDto();
         dto.setArticleId(10254);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/load_article_info")
+                .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                .content(mapper.writeValueAsBytes(dto));
+
+        // 发送请求，并设置响应格式
+        mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+    }
+
+    @Test
+    public void testLoadArticleBehavior() throws Exception {
+        ArticleInfoDto dto = new ArticleInfoDto();
+        dto.setArticleId(1);
+        dto.setAuthorId(1);
+        ApUser user = new ApUser();
+        user.setId(1L);
+        AppThreadLocalUtils.setUser(user);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/load_article_behavior")
                 .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
                 .content(mapper.writeValueAsBytes(dto));
 

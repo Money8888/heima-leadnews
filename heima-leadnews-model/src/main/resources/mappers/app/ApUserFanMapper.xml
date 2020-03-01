@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApUserFanMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.user.pojos.ApUserFan" >
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="fans_id" property="fansId" />
+        <result column="fans_name" property="fansName"/>
+        <result column="level" property="level"/>
+        <result column="created_time" property="createdTime" />
+        <result column="is_display" property="isDisplay"/>
+        <result column="is_shield_letter" property="isShieldLetter"/>
+        <result column="is_shield_comment" property="isShieldComment"/>
+        <result column="burst" property="burst"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, user_id, fans_id, fans_name, level, created_time, is_display, is_shield_letter,is_shield_comment
+  </sql>
+    <select id="selectByFansId" resultMap="BaseResultMap">
+        /*!mycat:sql=select id from ap_user_fan where burst='${burst}'*/
+        select <include refid="Base_Column_List" /> from ap_user_fan where user_id = #{userId} and  fans_id = #{fansId}
+    </select>
+
+    <delete id="deleteByFansId">
+    /*!mycat:sql=select id from ap_user_fan where burst='${burst}'*/
+    delete from ap_user_fan where user_id = #{userId} and  fans_id = #{fansId}
+    </delete>
+
+    <insert id="insert" parameterType="com.heima.model.user.pojos.ApUserFan" >
+    insert into ap_user_fan (id, user_id, fans_id,
+      fans_name, level, created_time,
+      is_display, is_shield_letter, is_shield_comment,burst
+      )
+    values (#{id}, #{userId}, #{fansId},
+      #{fansName}, #{level}, #{createdTime},
+      #{isDisplay}, #{isShieldLetter}, #{isShieldComment},#{burst}
+      )
+  </insert>
+</mapper>

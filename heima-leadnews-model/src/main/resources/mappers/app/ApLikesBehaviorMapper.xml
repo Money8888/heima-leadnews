@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApLikesBehaviorMapper" >
+    <resultMap id="BaseResultMap" type="com.heima.model.behavior.pojos.ApLikesBehavior" >
+        <id column="id" property="id"/>
+        <result column="behavior_entry_id"  property="behaviorEntryId"/>
+        <result column="entry_id" property="entryId" />
+        <result column="type" property="type" />
+        <result column="operation" property="operation"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="burst" property="burst"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, behavior_entry_id, entry_id, type, operation, created_time,burst
+  </sql>
+
+    <select id="selectLastLike" resultMap="BaseResultMap">
+      /*!mycat:sql=select id from ap_likes_behavior where burst='${burst}'*/
+        select * from ap_likes_behavior where behavior_entry_id=#{objectId} and entry_id=#{entryId} and type=#{type} order by created_time desc limit 1
+    </select>
+    <insert id="insert" parameterType="com.heima.article.mysql.core.model.pojos.app.ApLikesBehavior" >
+    insert into ap_likes_behavior (id, behavior_entry_id, entry_id, type, operation, created_time,burst)
+    values (#{id}, #{behaviorEntryId}, #{entryId}, #{type}, #{operation},
+      #{createdTime},#{burst})
+  </insert>
+</mapper>

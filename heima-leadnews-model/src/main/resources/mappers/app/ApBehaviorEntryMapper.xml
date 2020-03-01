@@ -11,18 +11,15 @@
     <sql id="Base_Column_List" >
     id, type, entry_id, created_time
     </sql>
-    <select id="selectByUserIdOrEquipmentId" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from ap_behavior_entry
-        <where>
-            <if test="userId!=null">
-                and entry_id = #{userId} and type = 1
-            </if>
-            <if test="equipmentId!=null">
-                and a.entry_id=#{equipmentId} and type = 0
-            </if>
-        </where>
-        limit 1
+    <select id="selectByUserIdOrEquipmentId" resultMap="BaseResultMap" >
+        <if test="userId!=null">
+            /*!mycat:sql=select id from ap_behavior_entry where burst='0-${userId}'*/
+            select * from ap_behavior_entry a where  a.entry_id=#{userId} and type=1 limit 1
+        </if>
+
+        <if test="userId==null and equipmentId!=null">
+            /*!mycat:sql=select id from ap_behavior_entry where burst='0-${equipmentId}'*/
+            select * from ap_behavior_entry a where  a.entry_id=#{equipmentId} and type=0 limit 1
+        </if>
     </select>
 </mapper>

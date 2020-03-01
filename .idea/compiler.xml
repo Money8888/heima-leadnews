@@ -11,6 +11,7 @@
         <module name="heima-leadnews-behavior" />
         <module name="heima-leadnews-utils" />
         <module name="service-mycat" />
+        <module name="heima-leadnews-user" />
         <module name="heima-leadnews-model" />
         <module name="heima-leadnews-article" />
       </profile>
@@ -27,6 +28,7 @@
       <module name="heima-leadnews-behavior" options="-parameters" />
       <module name="heima-leadnews-common" options="-parameters" />
       <module name="heima-leadnews-model" options="-parameters" />
+      <module name="heima-leadnews-user" options="-parameters" />
       <module name="heima-leadnews-utils" options="-parameters" />
       <module name="heimaleadnewsarticle" options="-parameters" />
       <module name="service-mycat" options="-parameters" />

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApUnlikesBehaviorMapper" >
+    <resultMap id="BaseResultMap" type="com.heima.model.behavior.pojos.ApUnlikesBehavior" >
+        <id column="id" property="id"/>
+        <result column="entry_id" property="entryId" />
+        <result column="article_id" property="articleId"/>
+        <result column="type" property="type"/>
+        <result column="created_time" property="createdTime" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, entry_id, type, created_time
+  </sql>
+    <select id="selectLastUnLike" resultMap="BaseResultMap">
+        select * from ap_unlikes_behavior where entry_id=#{entryId} and article_id=#{articleId} order by created_time desc limit 1
+    </select>
+
+    <insert id="insert" parameterType="com.heima.article.mysql.core.model.pojos.app.ApUnlikesBehavior" >
+    insert into ap_unlikes_behavior (entry_id, article_id,type, created_time)values (#{entryId}, #{articleId},#{type,jdbcType=TINYINT}, #{createdTime})
+  </insert>
+</mapper>
