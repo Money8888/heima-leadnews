@@ -15,7 +15,7 @@
         select * from ap_unlikes_behavior where entry_id=#{entryId} and article_id=#{articleId} order by created_time desc limit 1
     </select>
 
-    <insert id="insert" parameterType="com.heima.article.mysql.core.model.pojos.app.ApUnlikesBehavior" >
+    <insert id="insert" parameterType="com.heima.model.mappers.app.ApUnlikesBehaviorMapper" >
     insert into ap_unlikes_behavior (entry_id, article_id,type, created_time)values (#{entryId}, #{articleId},#{type,jdbcType=TINYINT}, #{createdTime})
   </insert>
 </mapper>

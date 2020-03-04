@@ -17,6 +17,7 @@
         <module>heima-leadnews-behavior</module>
         <module>service-mycat</module>
         <module>heima-leadnews-user</module>
+        <module>heima-leadnews-login</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->

@@ -18,7 +18,7 @@
       /*!mycat:sql=select id from ap_likes_behavior where burst='${burst}'*/
         select * from ap_likes_behavior where behavior_entry_id=#{objectId} and entry_id=#{entryId} and type=#{type} order by created_time desc limit 1
     </select>
-    <insert id="insert" parameterType="com.heima.article.mysql.core.model.pojos.app.ApLikesBehavior" >
+    <insert id="insert" parameterType="com.heima.model.mappers.app.ApLikesBehaviorMapper" >
     insert into ap_likes_behavior (id, behavior_entry_id, entry_id, type, operation, created_time,burst)
     values (#{id}, #{behaviorEntryId}, #{entryId}, #{type}, #{operation},
       #{createdTime},#{burst})

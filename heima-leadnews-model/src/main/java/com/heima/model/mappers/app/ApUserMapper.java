@@ -4,4 +4,5 @@ import com.heima.model.user.pojos.ApUser;
 
 public interface ApUserMapper {
     ApUser selectById(Integer id);
+    ApUser selectByApPhone(String phone);
 }
