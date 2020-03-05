@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApUserSearchMapper" >
+    <resultMap id="BaseResultMap" type="com.heima.model.user.pojos.ApUserSearch" >
+        <id column="id" property="id" />
+        <result column="entry_id" property="entryId" />
+        <result column="keyword" property="keyword" />
+        <result column="status" property="status" />
+        <result column="created_time" property="createdTime" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, entry_id, keyword, status, created_time
+  </sql>
+    <select id="selectByEntryId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from ap_user_search
+        where entry_id = #{entryId} and status = 1
+        order by created_time desc limit #{limit}
+    </select>
+    <update id="delUserSearch">
+        update ap_user_search
+        set status = 0
+        where entry_id =#{entryId} and id in(
+        <foreach item="item" collection="hisIds" separator=",">
+            #{item}
+        </foreach>
+        )
+    </update>
+
+    <update id="clearUserSearch">
+    update ap_user_search
+    set status = 0
+    where entry_id = #{entryId} and status = 1
+    </update>
+
+    <insert id="insert" parameterType="com.heima.model.user.pojos.ApUserSearch" >
+    insert into ap_user_search (entry_id, keyword, status,created_time)
+    values (#{entryId}, #{keyword}, #{status},#{createdTime})
+    </insert>
+    <select id="checkExist" resultType="java.lang.Integer">
+    select
+    count(1)
+    from ap_user_search
+    where entry_id = #{entryId} and keyword = #{keyword} and status = 1
+    </select>
+</mapper>

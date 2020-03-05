@@ -27,7 +27,7 @@ public interface ApArticleMapper {
      * @param type 加载方向
      * @return
      */
-    List<ApArticle> loadArticleListByLocation(@Param("dto") ArticleHomeDto dto, @Param("type") short type);
+    List<ApArticle> loadArticleListByLocation(@Param("dto") ArticleHomeDto dto, @Param("type") Object type);
 
     /**
      * 依据文章IDS来获取文章详细内容
