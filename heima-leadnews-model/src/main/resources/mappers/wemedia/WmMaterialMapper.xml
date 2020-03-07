@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.wemedia.WmMaterialMapper">
+	<resultMap id="BaseResultMap" type="com.heima.model.media.pojos.WmMaterial" >
+		<id column="id" />
+		<result column="user_id" />
+		<result column="url"/>
+		<result column="type"/>
+		<result column="is_collection"/>
+		<result column="created_time" />
+	</resultMap>
+	<sql id="Base_Column_List" >
+    id, user_id, url, type, is_collection, created_time
+	</sql>
+	<insert id="insert" parameterType="com.heima.model.media.pojos.WmMaterial" useGeneratedKeys="true" keyProperty="id">
+	insert into wm_material (user_id, url,
+	type, is_collection, created_time
+	)
+	values (#{userId}, #{url},
+	#{type}, #{isCollection}, #{createdTime}
+	)
+	</insert>
+	<select id="selectByPrimaryKey"
+			resultType="com.heima.model.media.pojos.WmMaterial"
+			parameterType="java.lang.Integer" >
+		select
+		<include refid="Base_Column_List" />
+		from wm_material
+		where id = #{id}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+	delete from wm_material  where id = #{id}
+	</delete>
+	<select id="findListByUidAndStatus"
+			resultType="com.heima.model.media.pojos.WmMaterial">
+		select
+		<include refid="Base_Column_List" />
+		from wm_material
+		where user_id = #{uid}
+		<if test="dto.isCollected == 1">
+			and is_collection = #{dto.isCollected}
+		</if>
+		limit ${(dto.page - 1) * dto.size}, ${dto.size}
+	</select>
+	<select id="countListByUidAndStatus" resultType="java.lang.Integer">
+		select count(0) from wm_material where user_id = #{uid}
+		<if test="dto.isCollected == 1">
+			and is_collection = #{dto.isCollected}
+		</if>
+	</select>
+	<update id="updateStatusByUidAndId">
+    update wm_material
+    set is_collection = #{type}
+    where user_id = #{userId} and id = #{id}
+</update>
+	<select id="findMaterialByUidAndimgUrls"
+			resultType="com.heima.model.media.pojos.WmMaterial">
+		select id, url
+		from wm_material
+		where user_id = #{uid}
+		and url in
+		<foreach item="item" index="index" collection="values"
+				 open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
+</mapper>

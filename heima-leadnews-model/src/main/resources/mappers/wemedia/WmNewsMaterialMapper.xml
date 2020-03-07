@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.wemedia.WmNewsMaterialMapper">
+    <select id="countByMid" resultType="java.lang.Integer">
+    select count(0)
+    from wm_news_material
+    where material_id = #{mid}
+    </select>
+    <insert id="saveRelationsByContent">
+        insert into wm_news_material (material_id, news_id, type, ord)
+        values
+        <foreach item="mid" index="ord" collection="materials.entrySet()"
+                 separator="," >
+            (#{mid}, #{newsId}, #{type}, #{ord})
+        </foreach>
+    </insert>
+
+    <delete id="delByNewsId">
+    delete from wm_news_material
+    where news_id = #{nid}
+    </delete>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.wemedia.WmUserMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.media.pojos.WmUser" >
+        <id column="id" property="id" />
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+        <result column="salt" property="salt"/>
+        <result column="ap_user_id" property="apUserId"/>
+        <result column="ap_author_id" property="apAuthorId"/>
+        <result column="nickname" property="nickname"/>
+        <result column="image" property="image"/>
+        <result column="location" property="location"/>
+        <result column="phone" property="phone"/>
+        <result column="status" property="status"/>
+        <result column="email" property="email"/>
+        <result column="type" property="type"/>
+        <result column="score" property="score"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="created_time" property="createdTime"/>
+    </resultMap>
+    <sql id="Base_Column_List" >
+    id, name, password, ap_user_id, ap_author_id, salt, nickname, image, location, phone, status, email, type,
+    score, login_time, created_time
+</sql>
+    <!-- 通过名称查询用户 -->
+    <select id="selectByName" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from wm_user where name = #{name} limit 1
+    </select>
+</mapper>

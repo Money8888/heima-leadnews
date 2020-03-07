@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.admin.AdChannelMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.admin.pojos.AdChannel">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="description" property="description"/>
+        <result column="is_default" property="isDefault"/>
+        <result column="status" property="status"/>
+        <result column="ord" property="ord"/>
+        <result column="created_time" property="createdTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, name, description, is_default, status, ord, created_time
+  </sql>
+    <sql id="Base_Column_where">
+        <where>
+            <if test="name!=null and name!=''">
+                and name = #{name}
+            </if>
+            <if test="description!=null and description!=''">
+                and description = #{description}
+            </if>
+            <if test="isDefault!=null and isDefault!=''">
+                and is_default = #{isDefault}
+            </if>
+            <if test="status!=null and status!=''">
+                and status = #{status}
+            </if>
+            <if test="ord!=null and ord!=''">
+                and ord = #{ord}
+            </if>
+        </where>
+    </sql>
+    <!--查询所有频道-->
+    <select id="selectAll" resultType="com.heima.model.admin.pojos.AdChannel">
+        select
+        <include refid="Base_Column_List"/>
+        from ad_channel
+    </select>
+</mapper>
