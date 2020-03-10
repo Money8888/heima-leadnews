@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.admin.AdUserMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.admin.pojos.AdUser" >
+        <id column="id" />
+        <result column="name"/>
+        <result column="password"/>
+        <result column="salt"/>
+        <result column="nickname"/>
+        <result column="image"/>
+        <result column="phone"/>
+        <result column="status"/>
+        <result column="email"/>
+        <result column="login_time" />
+        <result column="created_time" />
+
+    </resultMap>
+    <sql id="Base_Column_List" >
+
+    id, name, password, salt, nickname, image, phone, status, email, login_time, created_time
+  </sql>
+    <select id="selectByName" resultType="com.heima.model.admin.pojos.AdUser">
+        select <include refid="Base_Column_List" />
+        from ad_user where name = #{name} limit 1
+    </select>
+</mapper>

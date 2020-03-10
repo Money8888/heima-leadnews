@@ -67,4 +67,109 @@
         #{submitedTime},#{status},#{publishTime}, #{content}
       )
   </insert>
+    <select id="selectBySelective"
+            resultType="com.heima.model.media.pojos.WmNews">
+        select
+        <include refid="Base_Column_List"/>
+        from wm_news
+        <where>
+            user_id = #{uid}
+            <if test="dto.status != null and dto.status != -1" >
+                and status = #{dto.status}
+            </if>
+            <if test="dto.channelId != null" >
+                and channel_id = #{dto.channelId}
+            </if>
+            <if test="dto.keyWord != null" >
+                and title like concat('%', #{dto.keyWord}, '%')
+            </if>
+            <if test="dto.beginPubdate != null" >
+                and publish_time <![CDATA[>]]> #{dto.beginPubdate}
+            </if>
+            <if test="dto.endPubdate != null">
+                and publish_time <![CDATA[<]]> #{dto.endPubdate}
+            </if>
+        </where>
+        limit ${(dto.page - 1) * dto.size}, ${dto.size}
+    </select>
+    <select id="countSelectBySelective" resultType="java.lang.Integer">
+        select
+        count(1)
+        from wm_news
+        <where>
+            user_id = #{uid}
+            <if test="dto.status != null and dto.status != -1" >
+                and status = #{dto.status}
+            </if>
+            <if test="dto.channelId != null" >
+                and channel_id = #{dto.channelId}
+            </if>
+            <if test="dto.keyWord != null" >
+                and title like concat('%', #{dto.keyWord}, '%')
+            </if>
+            <if test="dto.beginPubdate != null" >
+                and publish_time <![CDATA[>]]> #{dto.beginPubdate}
+            </if>
+            <if test="dto.endPubdate != null">
+                and publish_time <![CDATA[<]]> #{dto.endPubdate}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectNewsDetailByPrimaryKey"
+            resultType="com.heima.model.media.pojos.WmNews">
+        select <include refid="Base_Column_List"/>
+        from wm_news
+        where id = #{id}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+        delete from wm_news
+        where id = #{id}
+    </delete>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.heima.model.media.pojos.WmNews" >
+
+        update wm_news
+        <set >
+            <if test="userId != null" >
+                user_id = #{userId},
+            </if>
+            <if test="title != null" >
+                title = #{title},
+            </if>
+            <if test="type != null" >
+                type = #{type},
+            </if>
+            <if test="channelId != null" >
+                channel_id = #{channelId},
+            </if>
+            <if test="labels != null" >
+                labels = #{labels},
+            </if>
+            <if test="createdTime != null" >
+                created_time = #{createdTime},
+            </if>
+            <if test="submitedTime != null" >
+                submited_time = #{submitedTime},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="publishTime != null" >
+                publish_time = #{publishTime},
+            </if>
+            <if test="reason != null" >
+                reason = #{reason},
+            </if>
+            <if test="articleId != null" >
+                article_id = #{articleId},
+            </if>
+            <if test="content != null" >
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
 </mapper>

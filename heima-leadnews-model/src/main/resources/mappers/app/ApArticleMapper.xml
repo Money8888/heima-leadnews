@@ -22,6 +22,7 @@
         <result column="created_time" property="createdTime"/>
         <result column="publish_time" property="publishTime"/>
         <result column="sync_status" property="syncStatus"/>
+        <result column="origin" property="origin"/>
     </resultMap>
     <resultMap id="resultStatisticMap" type="com.heima.model.article.pojos.ApArticleSDto">
         <result column="author_id" property="authorId"/>
@@ -163,7 +164,9 @@
         city_id,
         county_id,
         created_time,
-        publish_time,sync_status)
+        publish_time,
+        sync_status,
+        origin)
         values
         (#{title},
         #{authorId},
@@ -183,7 +186,8 @@
         #{countyId},
         #{createdTime},
         #{publishTime},
-        #{syncStatus}
+        #{syncStatus},
+        #{origin}
         )
     </insert>
 

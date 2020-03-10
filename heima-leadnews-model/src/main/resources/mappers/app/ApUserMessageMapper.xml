@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.app.ApUserMessageMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.user.pojos.ApUserMessage" >
+        <result column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="sender_id" property="senderId"/>
+        <result column="sender_name" property="senderName"/>
+        <result column="content" property="content"/>
+        <result column="type" property="type"/>
+        <result column="is_read" property="isRead"/>
+        <result column="created_time"  property="createdTime"/>
+        <result column="read_time"  property="readTime"/>
+    </resultMap>
+
+    <insert id="insertSelective" parameterType="com.heima.model.user.pojos.ApUserMessage" >
+        insert into ap_user_message
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userId != null" >
+                user_id,
+            </if>
+            <if test="senderId != null" >
+                sender_id,
+            </if>
+            <if test="senderName != null" >
+                sender_name,
+            </if>
+            <if test="content != null" >
+                content,
+            </if>
+            <if test="type != null" >
+                type,
+            </if>
+            <if test="isRead != null" >
+                is_read,
+            </if>
+            <if test="createdTime != null" >
+                created_time,
+            </if>
+            <if test="readTime != null" >
+                read_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id},
+            </if>
+            <if test="userId != null" >
+                #{userId},
+            </if>
+            <if test="senderId != null" >
+                #{senderId},
+            </if>
+            <if test="senderName != null" >
+                #{senderName},
+            </if>
+            <if test="content != null" >
+                #{content},
+            </if>
+            <if test="type != null" >
+                #{type,jdbcType=TINYINT},
+            </if>
+            <if test="isRead != null" >
+                #{isRead},
+            </if>
+            <if test="createdTime != null" >
+                #{createdTime},
+            </if>
+            <if test="readTime != null" >
+                #{readTime},
+            </if>
+        </trim>
+    </insert>
+</mapper>

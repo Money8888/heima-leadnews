@@ -9,4 +9,6 @@ public interface AdChannelMapper {
      * 查询所有频道
      */
     public List<AdChannel> selectAll();
+
+    AdChannel selectByPrimaryKey(Integer id);
 }

@@ -12,4 +12,16 @@
     <select id="selectById" resultMap="BaseResultMap">
     select * from ap_author where id=#{id}
   </select>
+
+    <select id="selectByAuthorName" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from ap_author where name=#{authorName}
+</select>
+    <insert id="insert" parameterType="com.heima.model.article.pojos.ApAuthor">
+        <selectKey resultType="java.lang.Integer" order="AFTER" keyColumn="id" keyProperty="id">
+            select last_insert_id()
+        </selectKey>
+        insert into ap_author (name, type, user_id, wm_user_id,
+        created_time)
+        values (#{name}, #{type}, #{userId},#{wmUserId}, #{createdTime})
+    </insert>
 </mapper>

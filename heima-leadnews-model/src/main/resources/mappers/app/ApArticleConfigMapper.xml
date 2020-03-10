@@ -16,4 +16,9 @@
     <select id="selectByArticleId" resultMap="BaseResultMap" parameterType="int" >
         select <include refid="Base_Column_List" /> from ap_article_config where article_id = #{articleId}
     </select>
+    <insert id="insert" parameterType="com.heima.model.article.pojos.ApArticleConfig">
+    insert into ap_article_config (article_id,is_comment,is_forward,is_down,is_delete) values(
+    #{articleId},#{isComment},#{isForward},#{isDown},#{isDelete}
+    );
+</insert>
 </mapper>

@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="heima-leadnews-media" />
+        <module name="heima-leadnews-admin" />
         <module name="heima-leadnews-apis" />
         <module name="heima-leadnews-login" />
         <module name="heima-leadnews-common" />
@@ -25,6 +26,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="heima-leadnews-admin" options="-parameters" />
       <module name="heima-leadnews-apis" options="-parameters" />
       <module name="heima-leadnews-article" options="-parameters" />
       <module name="heima-leadnews-behavior" options="-parameters" />

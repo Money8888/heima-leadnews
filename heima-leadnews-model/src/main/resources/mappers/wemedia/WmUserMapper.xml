@@ -28,4 +28,12 @@
         select <include refid="Base_Column_List" />
         from wm_user where name = #{name} limit 1
     </select>
+
+    <!-- 通过id查询用户 -->
+    <select id="selectById" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from wm_user
+        where id = #{id}
+    </select>
 </mapper>

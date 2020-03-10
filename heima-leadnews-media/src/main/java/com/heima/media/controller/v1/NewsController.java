@@ -5,6 +5,7 @@ import com.heima.media.apis.NewsControllerApi;
 import com.heima.media.service.NewsService;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.media.dtos.WmNewsDto;
+import com.heima.model.media.dtos.WmNewsPageReqDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,4 +32,21 @@ public class NewsController implements NewsControllerApi {
 		return newsService.saveNews(wmNews, WmMediaConstans.WM_NEWS_DRAFT_STATUS);  
 	}
 
+	@PostMapping("/list")
+	@Override
+	public ResponseResult listByUser(@RequestBody WmNewsPageReqDto dto) {
+		return newsService.listByUser(dto);
+	}
+
+	@Override
+	@PostMapping("/news")
+	public ResponseResult wmNews(@RequestBody WmNewsDto dto) {
+		return newsService.findWmNewsById(dto);
+	}
+
+	@Override
+	@PostMapping("/del_news")
+	public ResponseResult delNews(@RequestBody WmNewsDto dto) {
+		return newsService.delNews(dto);
+	}
 }

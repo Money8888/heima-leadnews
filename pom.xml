@@ -19,6 +19,7 @@
         <module>heima-leadnews-user</module>
         <module>heima-leadnews-login</module>
         <module>heima-leadnews-media</module>
+        <module>heima-leadnews-admin</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->

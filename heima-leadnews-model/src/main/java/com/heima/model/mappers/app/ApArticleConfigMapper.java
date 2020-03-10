@@ -4,4 +4,5 @@ import com.heima.model.article.pojos.ApArticleConfig;
 
 public interface ApArticleConfigMapper {
     ApArticleConfig selectByArticleId(Integer articleId);
+    int insert(ApArticleConfig apArticleConfig);
 }

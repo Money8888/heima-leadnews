@@ -1,17 +1,22 @@
 package com.heima.media.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.heima.common.kafka.messages.SubmitArticleAuthMessage;
 import com.heima.common.media.constans.WmMediaConstans;
+import com.heima.media.kafka.AdminMessageSender;
 import com.heima.media.service.NewsService;
+import com.heima.model.common.dtos.PageResponseResult;
 import com.heima.model.common.dtos.ResponseResult;
 import com.heima.model.common.enums.AppHttpCodeEnum;
 import com.heima.model.mappers.wemedia.WmMaterialMapper;
 import com.heima.model.mappers.wemedia.WmNewsMapper;
 import com.heima.model.mappers.wemedia.WmNewsMaterialMapper;
 import com.heima.model.media.dtos.WmNewsDto;
+import com.heima.model.media.dtos.WmNewsPageReqDto;
 import com.heima.model.media.pojos.WmMaterial;
 import com.heima.model.media.pojos.WmNews;
 import com.heima.model.media.pojos.WmUser;
+import com.heima.model.mess.admin.SubmitArticleAuto;
 import com.heima.utils.threadlocal.WmThreadLocalUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -35,6 +40,9 @@ public class NewsServiceImpl implements NewsService {
 
     @Autowired
     private WmNewsMaterialMapper wmNewsMaterialMapper;
+
+    @Autowired
+    private AdminMessageSender adminMessageSender;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -136,7 +144,7 @@ public class NewsServiceImpl implements NewsService {
 
         // 更新images
         if(images != null){
-            wmNews.setImages(StringUtils.join(images.stream().map(s -> s.replace(fileServerUrl,"")),","));
+            wmNews.setImages(StringUtils.join(images.stream().map(s -> s.replace(fileServerUrl,"")).collect(Collectors.toList()), WmMediaConstans.WM_NEWS_IMAGES_SWPARATOR));
             wmNewsMapper.updateByPrimaryKey(wmNews);
         }
         return null;
@@ -218,11 +226,22 @@ public class NewsServiceImpl implements NewsService {
         wmNews.setCreatedTime(new Date());
         wmNews.setSubmitedTime(new Date());
         wmNews.setEnable((short)1);
+        int count = 0;
         if(wmNews.getId() == null){
             // 保存
-            wmNewsMapper.insertNewsForEdit(wmNews);
+            count = wmNewsMapper.insertNewsForEdit(wmNews);
         }else {
-            wmNewsMapper.updateByPrimaryKey(wmNews);
+            count = wmNewsMapper.updateByPrimaryKey(wmNews);
+        }
+
+        // kafka发送需审核的消息
+        if(count == 1 && WmMediaConstans.WM_NEWS_SUMMIT_STATUS.equals(type)){
+            SubmitArticleAuthMessage message = new SubmitArticleAuthMessage();
+            SubmitArticleAuto submitArticleAuto = new SubmitArticleAuto();
+            submitArticleAuto.setArticleId(wmNews.getId());
+            submitArticleAuto.setType(SubmitArticleAuto.ArticleType.WEMEDIA);
+            message.setData(submitArticleAuto);
+            adminMessageSender.sendMessage(message);
         }
     }
 
@@ -255,4 +274,53 @@ public class NewsServiceImpl implements NewsService {
         return res;
     }
 
+    @Override
+    public ResponseResult listByUser(WmNewsPageReqDto dto) {
+        if(dto == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+        dto.checkParam();
+        Long uid = WmThreadLocalUtils.getUser().getId();
+        List<WmNews> datas = wmNewsMapper.selectBySelective(dto, uid);
+        int total = wmNewsMapper.countSelectBySelective(dto, uid);
+        // 分页展示
+        PageResponseResult responseResult = new PageResponseResult(dto.getPage(), dto.getSize(), total);
+        responseResult.setData(datas);
+        responseResult.setHost(fileServerUrl);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult findWmNewsById(WmNewsDto dto) {
+        if (dto == null || dto.getId() == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_REQUIRE, "文章ID不可缺少");
+        }
+        WmNews wmNews = wmNewsMapper.selectNewsDetailByPrimaryKey(dto.getId());
+        if(wmNews == null){
+            return ResponseResult.errorResult(AppHttpCodeEnum.DATA_NOT_EXIST, "文章不存在");
+        }
+        ResponseResult responseResult = ResponseResult.okResult(wmNews);
+        responseResult.setHost(fileServerUrl);
+        return responseResult;
+    }
+
+    @Override
+    public ResponseResult delNews(WmNewsDto dto) {
+        if (dto == null || dto.getId() == null) {
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
+        }
+        WmNews wmNews = wmNewsMapper.selectNewsDetailByPrimaryKey(dto.getId());
+        if(wmNews == null){
+            ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "文章不存在");
+        }
+        // 判断文章是否审核通过
+        if(wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_AUTHED_STATUS) || wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_PUBLISH_STATUS)){
+            return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "当前文章已通过审核不可删除");
+        }
+        // 删除文章与素材关联关系
+        wmNewsMaterialMapper.delByNewsId(dto.getId());
+        // 删除文章信息
+        wmNewsMapper.deleteByPrimaryKey(wmNews.getId());
+        return ResponseResult.okResult(AppHttpCodeEnum.SUCCESS);
+    }
 }
