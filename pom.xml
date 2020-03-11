@@ -20,6 +20,9 @@
         <module>heima-leadnews-login</module>
         <module>heima-leadnews-media</module>
         <module>heima-leadnews-admin</module>
+        <module>heima-leadnews-crawler</module>
+        <module>heima-leadnews-crawler</module>
+        <module>heima-leadnews-crawler</module>
     </modules>
 
     <!-- 继承Spring boot工程 -->

@@ -12,7 +12,7 @@ public abstract class ParseItem implements Serializable {
      * 处理类型 有正向 反向两种
      * FORWARD, 正向 REVERSE 反向
      */
-    private CrawlerEnum.HandelType handelType = null;
+    private String handelType = null;
 
     /**
      * 渠道名称
@@ -34,11 +34,11 @@ public abstract class ParseItem implements Serializable {
     public abstract String getParserContent();
 
 
-    public CrawlerEnum.HandelType getHandelType() {
+    public String getHandelType() {
         return handelType;
     }
 
-    public void setHandelType(CrawlerEnum.HandelType handelType) {
+    public void setHandelType(String handelType) {
         this.handelType = handelType;
     }
 

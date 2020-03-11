@@ -17,6 +17,7 @@
         <module name="heima-leadnews-user" />
         <module name="heima-leadnews-model" />
         <module name="heima-leadnews-article" />
+        <module name="heima-leadnews-crawler" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -31,6 +32,7 @@
       <module name="heima-leadnews-article" options="-parameters" />
       <module name="heima-leadnews-behavior" options="-parameters" />
       <module name="heima-leadnews-common" options="-parameters" />
+      <module name="heima-leadnews-crawler" options="-parameters" />
       <module name="heima-leadnews-login" options="-parameters" />
       <module name="heima-leadnews-media" options="-parameters" />
       <module name="heima-leadnews-model" options="-parameters" />

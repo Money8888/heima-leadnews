@@ -30,6 +30,11 @@ public class CrawlerProxyProvider {
 
     private boolean isUsedProxyIp = true;
 
+    /**
+     * 动态代理IP自动更新阈值
+     */
+    private int proxyIpUpdateThreshold = 10;
+
     public CrawlerProxyProvider() {
     }
 
@@ -64,6 +69,23 @@ public class CrawlerProxyProvider {
         }
 
         return crawlerProxy;
+    }
+
+    /**
+     * 设置代理IP不可用
+     *
+     * @param proxy
+     */
+    public void unavailable(CrawlerProxy proxy) {
+        if (isUsedProxyIp) {
+            writeLock.lock();
+            crawlerProxyList.remove(proxy);
+            writeLock.unlock();
+//            proxyProviderCallBack.unvailable(proxy);
+            if (crawlerProxyList.size() <= proxyIpUpdateThreshold) {
+                updateProxy();
+            }
+        }
     }
 
     public void updateProxy() {

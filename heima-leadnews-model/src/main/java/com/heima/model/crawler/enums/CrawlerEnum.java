@@ -25,11 +25,14 @@ public class CrawlerEnum {
     }
 
 
+    public enum DocumentType{
+        INIT, HELP, PAGE, OTHER
+    }
     /**
      * 抓取类型
      */
     public enum ComponentType {
-        NORMAL, PAGEPROCESSOR, PIPELINE, DOWNLOAD
+        NORMAL, PAGEPROCESSOR, PIPELINE, SCHEDULER, DOWNLOAD
     }
 
     public enum HtmlType {

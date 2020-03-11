@@ -44,6 +44,9 @@ public class CrawlerParseItem extends ParseItem {
      */
     private int docType;
 
+
+    private String documentType;
+
     /**
      * 副标题
      */
@@ -86,6 +89,7 @@ public class CrawlerParseItem extends ParseItem {
     private String compressContent;
 
 
+    @Override
     public String getInitialUrl() {
         return getUrl();
     }
@@ -165,6 +169,14 @@ public class CrawlerParseItem extends ParseItem {
 
     public void setDocType(int docType) {
         this.docType = docType;
+    }
+
+    public String  getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
     }
 
     public String getSubTitle() {
