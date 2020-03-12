@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.crawerls.ClNewsMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.crawler.pojos.ClNews">
+        <id column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="title" property="title"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="labels" property="labels"/>
+        <result column="label_ids" property="labelIds"/>
+        <result column="original_time" property="originalTime"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="submited_time" property="submitedTime"/>
+        <result column="status" property="status"/>
+        <result column="publish_time" property="publishTime"/>
+        <result column="reason" property="reason"/>
+        <result column="article_id" property="articleId"/>
+        <result column="no" property="no"/>
+    </resultMap>
+    <resultMap id="ResultMapWithBLOBs" type="com.heima.model.crawler.pojos.ClNews"
+               extends="BaseResultMap">
+        <result column="content" property="content" jdbcType="LONGVARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, task_id, title, name, type, channel_id, labels,label_ids original_time, created_time,
+    submited_time, status, publish_time, reason, article_id, no
+  </sql>
+    <sql id="Blob_Column_List">
+    ,content
+  </sql>
+    <sql id="Base_Column_where">
+        <where>
+            <if test="id!=null and id!=''">
+                and id = #{id}
+            </if>
+            <if test="title!=null and title!=''">
+                and title = #{title}
+            </if>
+            <if test="name!=null and name!=''">
+                and name = #{name}
+            </if>
+            <if test="type!=null and type!=''">
+                and type = #{type}
+            </if>
+            <if test="status!=null and status!=''">
+                and status = #{status}
+            </if>
+        </where>
+    </sql>
+    <select id="selectList" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="Blob_Column_List"/>
+        from cl_news
+        <include refid="Base_Column_where"/>
+    </select>
+    <select id="selectByIdAndStatus" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        <include refid="Blob_Column_List"/>
+        from cl_news
+        <include refid="Base_Column_where"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from cl_news
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cl_news
+    where url = #{id}
+  </delete>
+    <delete id="deleteByUrl" parameterType="java.lang.String">
+    delete from cl_news
+    where id = #{url}
+  </delete>
+    <insert id="insert" parameterType="com.heima.model.crawler.pojos.ClNews" useGeneratedKeys="true"
+            keyProperty="id">
+    insert into cl_news (id, task_id,title,
+      name, type, channel_id,
+      labels,label_ids, original_time, created_time,
+      submited_time, status, publish_time,
+      reason, article_id, no,
+      content)
+    values (#{id}, #{taskId},#{title},
+      #{name}, #{type}, #{channelId},
+      #{labels}, #{labelIds}, #{originalTime}, #{createdTime},
+      #{submitedTime}, #{status,jdbcType=TINYINT}, #{publishTime},
+      #{reason}, #{articleId}, #{no},
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+    <insert id="insertSelective" parameterType="com.heima.model.crawler.pojos.ClNews"
+            keyProperty="id" useGeneratedKeys="true">
+        insert into cl_news
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="taskId != null">
+                task_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="channelId != null">
+                channel_id,
+            </if>
+            <if test="labels != null">
+                labels,
+            </if>
+            <if test="labelIds != null">
+                label_ids,
+            </if>
+            <if test="originalTime != null">
+                original_time,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="submitedTime != null">
+                submited_time,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="publishTime != null">
+                publish_time,
+            </if>
+            <if test="reason != null">
+                reason,
+            </if>
+            <if test="articleId != null">
+                article_id,
+            </if>
+            <if test="no != null">
+                no,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="taskId != null">
+                #{taskId},
+            </if>
+
+            <if test="title != null">
+                #{title},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+            <if test="channelId != null">
+                #{channelId},
+            </if>
+            <if test="labels != null">
+                #{labels},
+            </if>
+            <if test="labelIds != null">
+                #{labelIds},
+            </if>
+            <if test="originalTime != null">
+                #{originalTime},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="submitedTime != null">
+                #{submitedTime},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=TINYINT},
+            </if>
+            <if test="publishTime != null">
+                #{publishTime},
+            </if>
+            <if test="reason != null">
+                #{reason},
+            </if>
+            <if test="articleId != null">
+                #{articleId},
+            </if>
+            <if test="no != null">
+                #{no},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateStatus" parameterType="com.heima.model.crawler.pojos.ClNews">
+        update cl_news
+        <set>
+            <if test="submitedTime != null">
+                submited_time = #{submitedTime},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+            <if test="no != null">
+                no = #{no},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heima.model.crawler.pojos.ClNews">
+        update cl_news
+        <set>
+            <if test="taskId != null">
+                task_id = #{taskId},
+            </if>
+            <if test="title != null">
+                title = #{title},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="channelId != null">
+                channel_id = #{channelId},
+            </if>
+            <if test="labels != null">
+                labels = #{labels},
+            </if>
+            <if test="labelIds != null">
+                label_ids = #{labelIds},
+            </if>
+            <if test="originalTime != null">
+                original_time = #{originalTime},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="submitedTime != null">
+                submited_time = #{submitedTime},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=TINYINT},
+            </if>
+            <if test="publishTime != null">
+                publish_time = #{publishTime},
+            </if>
+            <if test="reason != null">
+                reason = #{reason},
+            </if>
+            <if test="articleId != null">
+                article_id = #{articleId},
+            </if>
+            <if test="no != null">
+                no = #{no},
+            </if>
+            <if test="content != null">
+                content = #{content,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.heima.model.crawler.pojos.ClNews">
+    update cl_news
+    set task_id = #{taskId},
+      title = #{title},
+      name = #{name},
+      type = #{type},
+      channel_id = #{channelId},
+      labels = #{labels},
+      label_ids = #{labelIds},
+      original_time = #{originalTime},
+      created_time = #{createdTime},
+      submited_time = #{submitedTime},
+      status = #{status,jdbcType=TINYINT},
+      publish_time = #{publishTime},
+      reason = #{reason},
+      article_id = #{articleId},
+      no = #{no},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.heima.model.crawler.pojos.ClNews">
+    update cl_news
+    set task_id = #{taskId},
+      url = #{url},
+      title = #{title},
+      name = #{name},
+      type = #{type},
+      channel_id = #{channelId},
+      labels = #{labels},
+      label_ids = #{labelIds},
+      reading_num = #{readingNum},
+      original_time = #{originalTime},
+      created_time = #{createdTime},
+      submited_time = #{submitedTime},
+      status = #{status,jdbcType=TINYINT},
+      publish_time = #{publishTime},
+      reason = #{reason},
+      article_id = #{articleId},
+      no = #{no}
+    where id = #{id}
+  </update>
+</mapper>

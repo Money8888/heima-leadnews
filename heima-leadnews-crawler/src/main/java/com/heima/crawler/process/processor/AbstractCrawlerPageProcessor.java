@@ -59,7 +59,7 @@ public abstract class AbstractCrawlerPageProcessor extends AbstractProcessFlow i
 
     @Override
     public CrawlerEnum.ComponentType getComponentType() {
-        return null;
+        return CrawlerEnum.ComponentType.PAGEPROCESSOR;
     }
 
     @Override

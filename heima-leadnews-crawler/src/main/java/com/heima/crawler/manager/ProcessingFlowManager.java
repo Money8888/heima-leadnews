@@ -66,8 +66,10 @@ public class ProcessingFlowManager {
 
     private Spider configSpider() {
         Spider spider = initSpider();
-        // 设置线程数
-        spider.thread(5);
+        if(spider != null) {
+            // 设置线程数
+            spider.thread(5);
+        }
         return spider;
     }
 

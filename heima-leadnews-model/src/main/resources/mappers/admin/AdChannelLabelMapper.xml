@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.admin.AdChannelLabelMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.admin.pojos.AdChannelLabel">
+        <id column="id" property="id"/>
+        <result column="channel_id" property="channelId"/>
+        <result column="label_id" property="labelId"/>
+        <result column="ord" property="ord"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, channel_id, label_id, ord
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ad_channel_label
+        where id = #{id}
+    </select>
+    <select id="selectByLabelId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from ad_channel_label
+        where label_id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from ad_channel_label
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="com.heima.model.admin.pojos.AdChannelLabel">
+    insert into ad_channel_label (id, channel_id, label_id,
+      ord)
+    values (#{id}, #{channelId}, #{labelId},
+      #{ord})
+  </insert>
+    <insert id="insertSelective" parameterType="com.heima.model.admin.pojos.AdChannelLabel">
+        insert into ad_channel_label
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="channelId != null">
+                channel_id,
+            </if>
+            <if test="labelId != null">
+                label_id,
+            </if>
+            <if test="ord != null">
+                ord,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="channelId != null">
+                #{channelId},
+            </if>
+            <if test="labelId != null">
+                #{labelId},
+            </if>
+            <if test="ord != null">
+                #{ord},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.heima.model.admin.pojos.AdChannelLabel">
+        update ad_channel_label
+        <set>
+            <if test="channelId != null">
+                channel_id = #{channelId},
+            </if>
+            <if test="labelId != null">
+                label_id = #{labelId},
+            </if>
+            <if test="ord != null">
+                ord = #{ord},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heima.model.admin.pojos.AdChannelLabel">
+    update ad_channel_label
+    set channel_id = #{channelId},
+      label_id = #{labelId},
+      ord = #{ord}
+    where id = #{id}
+  </update>
+</mapper>

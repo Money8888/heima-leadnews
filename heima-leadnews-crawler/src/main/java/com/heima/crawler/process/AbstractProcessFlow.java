@@ -259,4 +259,44 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
         }
         return cookieStore;
     }
+
+    /**
+     * 获取原始的请求的JSON数据
+     *
+     * @param url
+     * @param parameterMap
+     * @return
+     */
+    public String getOriginalRequestJsonData(String url, Map<String, String> parameterMap) {
+        //获取代理
+        CrawlerProxy proxy = crawlerProxyProvider.getRandomProxy();
+
+        //获取Cookie列表
+        List<CrawlerCookie> cookieList = cookieHelper.getCookieEntity(url, proxy);
+        //通过HttpClient方式来获取数据
+        String jsonData = getHttpClientRequestData(url, parameterMap, cookieList, proxy);
+        //如果不是JSON 说明数据抓取失败则通过SeleniumUtils的方式来获取数据
+        if (!isJson(jsonData)) {
+            CrawlerHtml crawlerHtml = getSeleniumRequestData(url, parameterMap, proxy);
+            jsonData = seleniumClient.getJsonData(crawlerHtml);
+        }
+        return jsonData;
+    }
+
+
+    /**
+     * 验证 字符串是否是json格式
+     *
+     * @param jsonData
+     * @return
+     */
+    public boolean isJson(String jsonData) {
+        boolean isJson = false;
+        try {
+            isJson = JsonValidator.getJsonValidator().validate(jsonData);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return isJson;
+    }
 }

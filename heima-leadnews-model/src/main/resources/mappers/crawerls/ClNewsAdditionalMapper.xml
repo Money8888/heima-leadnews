@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.crawerls.ClNewsAdditionalMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.crawler.pojos.ClNewsAdditional">
+        <id column="id" property="id"/>
+        <result column="news_id" property="newsId"/>
+        <result column="url" property="url"/>
+        <result column="read_count" property="readCount"/>
+        <result column="likes" property="likes"/>
+        <result column="comment" property="comment"/>
+        <result column="forward" property="forward"/>
+        <result column="unlikes" property="unlikes"/>
+        <result column="collection" property="collection"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="count" property="count"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="update_num" property="updateNum"/>
+        <result column="next_update_time" property="nextUpdateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, news_id, url, read_count, likes, comment, forward, unlikes, collection, created_time,
+    count, updated_time,update_num,next_update_time
+  </sql>
+    <sql id="Base_Column_where">
+        <where>
+            <if test="newsId!=null and newsId!=''">
+                and news_id = #{newsId}
+            </if>
+            <if test="url!=null and url!=''">
+                and url = #{url}
+            </if>
+            <if test="readCount!=null and readCount!=''">
+                and read_count = #{readCount}
+            </if>
+            <if test="readCount!=null and readCount!=''">
+                and read_count = #{readCount}
+            </if>
+        </where>
+    </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_news_additional
+        <include refid="Base_Column_where"/>
+    </select>
+    <select id="selectListByNeedUpdate" resultMap="BaseResultMap" parameterType="java.util.Date">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_news_additional
+        <where>
+            <![CDATA[
+            and update_num < 5
+            and next_update_time <= #{currentDate}
+            ]]>
+        </where>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_news_additional
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cl_news_additional
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional"
+            keyProperty="id" useGeneratedKeys="true">
+    insert into cl_news_additional (id, news_id, url,
+      read_count, likes, comment,
+      forward, unlikes, collection,
+      created_time, count, updated_time,update_num,next_update_time
+      )
+    values (#{id}, #{newsId}, #{url},
+      #{readCount}, #{likes}, #{comment},
+      #{forward}, #{unlikes}, #{collection},
+      #{createdTime}, #{count}, #{updatedTime},#{updateNum},#{nextUpdateTime}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional"
+            keyProperty="id" useGeneratedKeys="true">
+
+        insert into cl_news_additional
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="newsId != null">
+                news_id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="readCount != null">
+                read_count,
+            </if>
+            <if test="likes != null">
+                likes,
+            </if>
+            <if test="comment != null">
+                comment,
+            </if>
+            <if test="forward != null">
+                forward,
+            </if>
+            <if test="unlikes != null">
+                unlikes,
+            </if>
+            <if test="collection != null">
+                collection,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="count != null">
+                count,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updateNum != null">
+                update_num,
+            </if>
+
+            <if test="nextUpdateTime != null">
+                next_update_time,
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="newsId != null">
+                #{newsId},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="readCount != null">
+                #{readCount},
+            </if>
+            <if test="likes != null">
+                #{likes},
+            </if>
+            <if test="comment != null">
+                #{comment},
+            </if>
+            <if test="forward != null">
+                #{forward},
+            </if>
+            <if test="unlikes != null">
+                #{unlikes},
+            </if>
+            <if test="collection != null">
+                #{collection},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="count != null">
+                #{count},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+            <if test="updateNum != null">
+                #{updateNum},
+            </if>
+            <if test="nextUpdateTime != null">
+                #{nextUpdateTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+        update cl_news_additional
+        <set>
+            <if test="newsId != null">
+                news_id = #{newsId},
+            </if>
+            <if test="url != null">
+                url = #{url},
+            </if>
+            <if test="readCount != null">
+                read_count = #{readCount},
+            </if>
+            <if test="likes != null">
+                likes = #{likes},
+            </if>
+            <if test="comment != null">
+                comment = #{comment},
+            </if>
+            <if test="forward != null">
+                forward = #{forward},
+            </if>
+            <if test="unlikes != null">
+                unlikes = #{unlikes},
+            </if>
+            <if test="collection != null">
+                collection = #{collection},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="count != null">
+                count = #{count},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updateNum != null">
+                update_num = #{updateNum},
+            </if>
+            <if test="nextUpdateTime != null">
+                next_update_time = #{nextUpdateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+    update cl_news_additional
+    set news_id = #{newsId},
+      url = #{url},
+      read_count = #{readCount},
+      likes = #{likes},
+      comment = #{comment},
+      forward = #{forward},
+      unlikes = #{unlikes},
+      collection = #{collection},
+      created_time = #{createdTime},
+      count = #{count},
+      updated_time = #{updatedTime},
+       update_num = #{updateNum},
+      next_update_time = #{nextUpdateTime}
+    where id = #{id}
+  </update>
+</mapper>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.crawerls.ClNewsCommentMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.crawler.pojos.ClNewsComment">
+        <id column="id" property="id"/>
+        <result column="news_id" property="newsId"/>
+        <result column="username" property="username"/>
+        <result column="content" property="content"/>
+        <result column="comment_date" property="commentDate"/>
+        <result column="created_date" property="createdDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      id,news_id,username,content,comment_date,created_date
+    </sql>
+    <sql id="Base_Column_where">
+        <where>
+            <if test="newsId!=null and newsId!=''">
+                news_id = #{newsId}
+            </if>
+            <if test="username!=null and username!=''">
+                username = #{username}
+            </if>
+            <if test="content!=null and content!=''">
+                content = #{content}
+            </if>
+            <if test="commentDate!=null and commentDate!=''">
+                comment_date = #{commentDate}
+            </if>
+            <if test="createdDate!=null and createdDate!=''">
+                created_date = #{createdDate}
+            </if>
+        </where>
+    </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_news_comments
+        <include refid="Base_Column_where"/>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_news_comments
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from cl_news_comments
+        where id = #{id}
+    </delete>
+    <insert id="insert" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+
+        insert into cl_news_comments (id, news_id, username,
+        content, comment_date, created_time
+        )
+        values (#{id}, #{newsId}, #{username},
+        #{content}, #{commentDate}, #{createTime}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+
+        insert into cl_news_comments
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="newsId != null">
+                news_id,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="commentDate != null">
+                comment_date,
+            </if>
+            <if test="createdDate != null">
+                created_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="newsId != null">
+                #{newsId},
+            </if>
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="commentDate != null">
+                #{commentDate},
+            </if>
+            <if test="createdDate != null">
+                #{createdDate},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+        update cl_news_comments
+        <set>
+            <if test="newsId != null">
+                news_id = #{newsId},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="content != null">
+                content = #{content},
+            </if>
+            <if test="commentDate != null">
+                comment_date = #{commentDate},
+            </if>
+            <if test="createdDate != null">
+                created_date = #{createdDate},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heima.model.crawler.pojos.ClNewsAdditional">
+
+        update cl_news_comments
+        set news_id = #{newsId},
+        username = #{username},
+        content = #{content},
+        comment_date = #{commentDate},
+        created_date = #{createdDate},
+        where id = #{id}
+    </update>
+</mapper>

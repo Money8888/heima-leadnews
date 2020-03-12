@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.heima.model.mappers.crawerls.ClIpPoolMapper">
+    <resultMap id="BaseResultMap" type="com.heima.model.crawler.pojos.ClIpPool">
+        <id column="id" property="id"/>
+        <result column="supplier" property="supplier"/>
+        <result column="ip" property="ip"/>
+        <result column="port" property="port"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="code" property="code"/>
+        <result column="duration" property="duration"/>
+        <result column="error" property="error"/>
+        <result column="is_enable" property="isEnable"/>
+        <result column="ranges" property="ranges"/>
+        <result column="created_time" property="createdTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_where">
+        <where>
+            <if test="supplier!=null and supplier!=''">
+                and supplier = #{supplier}
+            </if>
+            <if test="ip!=null and ip!=''">
+                and ip = #{ip}
+            </if>
+            <if test="port!=null and port!=''">
+                and port = #{port}
+            </if>
+            <if test="username!=null and username!=''">
+                and username = #{username}
+            </if>
+            <if test="password!=null and password!=''">
+                and password = #{password}
+            </if>
+            <if test="code!=null and code!=''">
+                and code = #{code}
+            </if>
+            <if test="duration!=null and duration!=''">
+                and duration = #{duration}
+            </if>
+            <if test="error!=null and error!=''">
+                and error = #{error}
+            </if>
+            <if test="isEnable!=null and isEnable!=''">
+                and is_enable = #{isEnable}
+            </if>
+            <if test="ranges!=null and ranges!=''">
+                and ranges = #{ranges}
+            </if>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+    id, supplier, ip, port,username,password,code,duration,error,is_enable, ranges, created_time
+  </sql>
+    <select id="selectList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_ip_pool
+        <include refid="Base_Column_where"/>
+    </select>
+    <select id="selectAvailableList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_ip_pool
+        <where>
+            and is_enable = true
+            <if test="duration!=null and duration!=''">
+                <![CDATA[
+                and duration <= #{duration}
+                 ]]>
+            </if>
+        </where>
+        order by duration
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from cl_ip_pool
+        where id = #{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cl_ip_pool
+    where id = #{id}
+  </delete>
+    <insert id="insert" parameterType="com.heima.model.crawler.pojos.ClIpPool"
+            useGeneratedKeys="true" keyProperty="id">
+    insert into cl_ip_pool (id, supplier, ip, port,username,password,code,duration,error,
+      is_enable, ranges, created_time
+      )
+    values (#{id}, #{supplier}, #{ip}, #{port}, #{username}, #{password},#{code},#{duration},#{error},
+      #{isEnable}, #{ranges}, #{createdTime}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.heima.model.crawler.pojos.ClIpPool" keyProperty="id" useGeneratedKeys="true">
+
+        insert into cl_ip_pool
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="supplier != null">
+                supplier,
+            </if>
+            <if test="ip != null">
+                ip,
+            </if>
+            <if test="port != null">
+                port,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="duration != null">
+                duration,
+            </if>
+            <if test="error != null">
+                error,
+            </if>
+            <if test="isEnable != null">
+                is_enable,
+            </if>
+            <if test="ranges != null">
+                ranges,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="supplier != null">
+                #{supplier},
+            </if>
+            <if test="ip != null">
+                #{ip},
+            </if>
+            <if test="port != null">
+                #{port},
+            </if>
+            <if test="username != null">
+                #{username},
+            </if>
+            <if test="password != null">
+                #{password},
+            </if>
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="duration != null">
+                #{duration},
+            </if>
+            <if test="error != null">
+                #{error},
+            </if>
+            <if test="isEnable != null">
+                #{isEnable},
+            </if>
+            <if test="ranges != null">
+                #{ranges},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heima.model.crawler.pojos.ClIpPool">
+
+        update cl_ip_pool
+        <set>
+            <if test="supplier != null">
+                supplier = #{supplier},
+            </if>
+            <if test="ip != null">
+                ip = #{ip},
+            </if>
+            <if test="port != null">
+                port = #{port},
+            </if>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="duration != null">
+                duration = #{duration},
+            </if>
+            <if test="error != null">
+                error = #{error},
+            </if>
+            <if test="isEnable != null">
+                is_enable = #{isEnable},
+            </if>
+            <if test="ranges != null">
+                ranges = #{ranges},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heima.model.crawler.pojos.ClIpPool">
+
+    update cl_ip_pool
+    set supplier = #{supplier},
+      ip = #{ip},
+      port = #{port},
+      username = #{username},
+      password = #{password},
+      code = #{code},
+      duration = #{duration},
+      error = #{error},
+      is_enable = #{isEnable},
+      ranges = #{ranges},
+      created_time = #{createdTime}
+    where id = #{id}
+  </update>
+</mapper>
