@@ -36,6 +36,11 @@ public class CrawlerParseItem extends ParseItem {
     private String title;
 
     /**
+     * 标签
+     */
+    private String labels;
+
+    /**
      * 类型
      */
     private String type;
@@ -88,6 +93,13 @@ public class CrawlerParseItem extends ParseItem {
      */
     private String compressContent;
 
+    public String getLabels() {
+        return labels;
+    }
+
+    public void setLabels(String labels) {
+        this.labels = labels;
+    }
 
     @Override
     public String getInitialUrl() {
@@ -171,10 +183,12 @@ public class CrawlerParseItem extends ParseItem {
         this.docType = docType;
     }
 
+    @Override
     public String  getDocumentType() {
         return documentType;
     }
 
+    @Override
     public void setDocumentType(String documentType) {
         this.documentType = documentType;
     }

@@ -67,10 +67,14 @@ public class HtmlParser {
      */
     public List<HtmlLabel> parseHtml(String content) {
         long currentTime = System.currentTimeMillis();
-        log.info("开始解析文章内容");
-        Document document = Jsoup.parse(content);
-        Elements elements = document.select(cssExpression);
-        List<HtmlLabel> htmlLabelList = parseElements(elements);
+        List<HtmlLabel> htmlLabelList = null;
+        if(content != null){
+            log.info("开始解析文章内容");
+            Document document = Jsoup.parse(content);
+            Elements elements = document.select(cssExpression);
+            htmlLabelList = parseElements(elements);
+        }
+
         log.info("解析文章内容完成，耗时：{}", System.currentTimeMillis() - currentTime);
         return htmlLabelList;
     }

@@ -4,16 +4,21 @@ import com.heima.crawler.helper.CookieHelper;
 import com.heima.crawler.helper.CrawlerHelper;
 import com.heima.crawler.process.entity.CrawlerConfigProperty;
 import com.heima.crawler.process.scheduler.DbAndRedisScheduler;
+import com.heima.crawler.service.CrawlerIpPoolService;
 import com.heima.crawler.utils.SeleniumClient;
 import com.heima.model.crawler.core.callback.DataValidateCallBack;
+import com.heima.model.crawler.core.callback.ProxyProviderCallBack;
 import com.heima.model.crawler.core.parse.ParseRule;
+import com.heima.model.crawler.core.proxy.CrawlerProxy;
 import com.heima.model.crawler.core.proxy.CrawlerProxyProvider;
 import com.heima.model.crawler.enums.CrawlerEnum;
+import com.heima.model.crawler.pojos.ClIpPool;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
@@ -40,6 +45,9 @@ public class CrawlerConfig {
     private String suffix;
 
     private Spider spider;
+
+    @Autowired
+    private CrawlerIpPoolService crawlerIpPoolService;
 
     @Value("${crux.cookie.name}")
     private static String CRUX_COOKIE_NAME;
@@ -148,7 +156,48 @@ public class CrawlerConfig {
     public CrawlerProxyProvider getCrawlerProxyProvider() {
         CrawlerProxyProvider crawlerProxyProvider = new CrawlerProxyProvider();
         crawlerProxyProvider.setUsedProxyIp(isUsedProxyIp);
+        // 使用动态代理
+        crawlerProxyProvider.setProxyProviderCallBack(new ProxyProviderCallBack() {
+            @Override
+            public List<CrawlerProxy> getProxyList() {
+                return getCrawlerProxyList();
+            }
+
+            @Override
+            public void unvailable(CrawlerProxy proxy) {
+                unvailableProxy(proxy);
+            }
+        });
         return crawlerProxyProvider;
+    }
+
+    /**
+     * 获取初始化ip列表
+     * 响应时间小于5秒且可用的ip
+     */
+    private List<CrawlerProxy> getCrawlerProxyList(){
+        List<CrawlerProxy> crawlerProxyList = new ArrayList<>();
+        ClIpPool clIpPool = new ClIpPool();
+        clIpPool.setDuration(5);
+        List<ClIpPool> clIpPoolList = crawlerIpPoolService.queryAvailableList(clIpPool);
+        if(clIpPoolList != null && !clIpPoolList.isEmpty()){
+            for (ClIpPool ipPool : clIpPoolList) {
+                if(ipPool != null){
+                    crawlerProxyList.add(new CrawlerProxy(ipPool.getIp(), ipPool.getPort()));
+                }
+            }
+        }
+        return crawlerProxyList;
+    }
+
+    /**
+     * 代理IP不可用处理方法
+     * @param proxy
+     */
+    private void unvailableProxy(CrawlerProxy proxy) {
+        if (null != proxy) {
+            crawlerIpPoolService.unvailableProxy(proxy, "自动禁用");
+        }
     }
 
     /**

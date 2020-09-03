@@ -4,6 +4,7 @@ import com.heima.crawler.config.CrawlerConfig;
 import com.heima.crawler.process.ProcessFlow;
 import com.heima.crawler.process.entity.CrawlerComponent;
 import com.heima.crawler.process.entity.ProcessFlowData;
+import com.heima.crawler.service.CrawlerNewsAdditionalService;
 import com.heima.model.crawler.core.parse.ParseItem;
 import com.heima.model.crawler.enums.CrawlerEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,7 @@ import us.codecraft.webmagic.scheduler.Scheduler;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -33,6 +35,9 @@ public class ProcessingFlowManager {
 
     @Autowired
     private CrawlerConfig crawlerConfig;
+
+    @Autowired
+    private CrawlerNewsAdditionalService crawlerNewsAdditionalService;
 
     /**
      * 注入所有的工作流
@@ -126,6 +131,34 @@ public class ProcessingFlowManager {
      */
     public void handel() {
         startTask(null, CrawlerEnum.HandelType.FORWARD.name());
+    }
+
+    /**
+     * 逆向处理
+     */
+    public void reverseHandel() {
+        List<ParseItem> parseItemList = crawlerNewsAdditionalService.queryIncrementParseItem(new Date());
+        handelReverseData(parseItemList);
+        log.info("开始进行数据反向更新，增量数据数量：{}", parseItemList.size());
+        if (null != parseItemList && !parseItemList.isEmpty()) {
+            startTask(parseItemList, CrawlerEnum.HandelType.REVERSE.name());
+        } else {
+            log.info("增量数据为空不进行增量数据更新");
+        }
+    }
+
+    /**
+     * 反向同步数据处理
+     *
+     * @param parseItemList
+     */
+    public void handelReverseData(List<ParseItem> parseItemList) {
+        if (null != parseItemList && !parseItemList.isEmpty()) {
+            for (ParseItem item : parseItemList) {
+                item.setDocumentType(CrawlerEnum.DocumentType.PAGE.name());
+                item.setHandelType(CrawlerEnum.HandelType.REVERSE.name());
+            }
+        }
     }
 
     /**

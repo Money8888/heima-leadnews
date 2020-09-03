@@ -19,6 +19,10 @@ public abstract class ParseItem implements Serializable {
      */
     private String channelName;
 
+    private String documentType;
+
+
+
     /**
      * 获取初始的URL
      *
@@ -33,6 +37,13 @@ public abstract class ParseItem implements Serializable {
      */
     public abstract String getParserContent();
 
+    public String getDocumentType() {
+        return documentType;
+    }
+
+    public void setDocumentType(String documentType) {
+        this.documentType = documentType;
+    }
 
     public String getHandelType() {
         return handelType;

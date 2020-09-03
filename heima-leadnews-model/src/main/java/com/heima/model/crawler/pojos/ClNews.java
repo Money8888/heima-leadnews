@@ -25,6 +25,7 @@ public class ClNews {
     private Integer articleId;
     private Integer no;
     private String content;
+    private String labelIds;
     public String getUnCompressContent() {
         if (StringUtils.isNotEmpty(content)) {
             return ZipUtils.gunzip(content);
@@ -32,6 +33,13 @@ public class ClNews {
         return content;
     }
 
+    public String getLabelIds() {
+        return labelIds;
+    }
+
+    public void setLabelIds(String labelIds) {
+        this.labelIds = labelIds;
+    }
 
     public Integer getId() {
         return id;
