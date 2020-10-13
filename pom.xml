@@ -60,7 +60,7 @@
         <hanlp.version>portable-1.3.4</hanlp.version>
         <fastdfs.version>0.2.0</fastdfs.version>
         <baidu.version>4.9.0</baidu.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.1</junit.version>
         <searchbox.version>6.3.1</searchbox.version>
         <elasticsearch.version>7.2.0</elasticsearch.version>
         <ali.core.version>4.1.1</ali.core.version>
