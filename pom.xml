@@ -45,7 +45,7 @@
         <commons.codec.version>1.12</commons.codec.version>
         <lombok.version>1.18.8</lombok.version>
         <mysql.version>5.1.47</mysql.version>
-        <mybatis.version>3.5.1</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
         <mybatis.spring.version>2.0.1</mybatis.spring.version>
         <lang3.version>3.5</lang3.version>
         <pagehelper.version>1.2.3</pagehelper.version>
