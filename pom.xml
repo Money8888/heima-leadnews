@@ -49,7 +49,7 @@
         <mybatis.spring.version>2.0.1</mybatis.spring.version>
         <lang3.version>3.5</lang3.version>
         <pagehelper.version>1.2.3</pagehelper.version>
-        <jsoup.version>1.10.2</jsoup.version>
+        <jsoup.version>1.14.2</jsoup.version>
         <jwt.version>0.9.1</jwt.version>
         <fastjson.version>1.2.58</fastjson.version>
         <fastjson.dataformat.version>2.9.9</fastjson.dataformat.version>
