@@ -51,7 +51,7 @@
         <pagehelper.version>1.2.3</pagehelper.version>
         <jsoup.version>1.10.2</jsoup.version>
         <jwt.version>0.9.1</jwt.version>
-        <fastjson.version>1.2.58</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <fastjson.dataformat.version>2.9.9</fastjson.dataformat.version>
         <spring.jwt.version>1.0.9.RELEASE</spring.jwt.version>
         <spring.boot.admin.version>2.1.6</spring.boot.admin.version>
