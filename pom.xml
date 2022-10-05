@@ -62,7 +62,7 @@
         <baidu.version>4.9.0</baidu.version>
         <junit.version>4.12</junit.version>
         <searchbox.version>6.3.1</searchbox.version>
-        <elasticsearch.version>7.2.0</elasticsearch.version>
+        <elasticsearch.version>7.14.0</elasticsearch.version>
         <ali.core.version>4.1.1</ali.core.version>
         <ali.green.version>3.4.1</ali.green.version>
         <kafka.version>2.2.7.RELEASE</kafka.version>
